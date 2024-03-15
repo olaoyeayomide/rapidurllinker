@@ -1,0 +1,203 @@
+body {
+  /* font-family: "Protest Riot", sans-serif;
+    font-weight: 700px;
+    font-style: normal;
+    color: purple; */
+
+  /* background-image: radial-gradient(
+      circle farthest-side at bottom right,
+      rgb(246, 255, 79),
+      rgb(85, 128, 0) 15%,
+      rgba(0, 102, 0, 1) 35%,
+      rgba(0, 77, 0, 1) 50%,
+      rgba(0, 65, 0, 1) 65%,
+      rgba(0, 38, 0, 1) 85%
+    ); */
+
+  /* background-image: radial-gradient(
+    circle farthest-side at bottom right,
+    rgb(246, 255, 79),
+    rgb(85, 128, 0) 15%,
+    rgba(0, 102, 0, 1) 35%,
+    rgba(0, 77, 0, 1) 50%,
+    rgba(0, 65, 0, 1) 65%,
+    rgba(0, 38, 0, 1) 127%
+  ); */
+  background-color: black;
+}
+
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 70px;
+  padding: 0 25px;
+  margin: 0px auto;
+  gap: 60px;
+}
+
+h5 {
+  font-family: "Protest Riot", sans-serif;
+  color: blue;
+  background: #000000;
+  background-color: #000000;
+  background-image: radial-gradient(
+    circle farthest-side at bottom left,
+    rgb(246, 255, 79),
+    rgb(92, 128, 0) 15%,
+    rgba(0, 102, 0, 1) 35%,
+    rgba(0, 77, 0, 1) 50%,
+    rgba(0, 53, 0, 1) 65%,
+    rgba(0, 30, 0, 1) 85%,
+    rgba(0, 0, 0, 1) 100%
+  );
+  background-size: 100%;
+  background-repeat: repeat;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -moz-background-clip: text;
+  -moz-text-fill-color: transparent;
+  font-weight: 500;
+  font-size: 30px;
+}
+
+.btn {
+  font-size: 18px;
+  color: white;
+  border-radius: 20px;
+  padding: 10px;
+  border: none;
+}
+
+.nav_menu {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 60px;
+  transition: 0.7s ease;
+  font-size: 20px;
+}
+
+.nav-link {
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  text-decoration: none;
+  font-size: 23px;
+  font-weight: 300;
+  color: rgb(80, 125, 0);
+}
+
+.login {
+  background-color: rgb(123, 123, 123);
+}
+.signup {
+  background-color: rgb(146, 204, 0);
+}
+
+div {
+  text-align: center;
+}
+
+.page_details {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  max-width: 869px;
+  padding: 30px 10px;
+  margin: auto;
+}
+
+h1 {
+  background-image: radial-gradient(
+    circle farthest-side at bottom left,
+    rgb(246, 255, 79),
+    rgb(92, 128, 0) 15%,
+    rgba(0, 102, 0, 1) 35%,
+    rgba(0, 77, 0, 1) 50%,
+    rgba(0, 53, 0, 1) 65%,
+    rgba(0, 30, 0, 1) 85%,
+    rgba(0, 0, 0, 1) 100%
+  );
+  background-size: 100%;
+  background-repeat: repeat;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -moz-background-clip: text;
+  -moz-text-fill-color: transparent;
+  margin: auto;
+}
+
+.input_activation {
+  padding: 50px;
+}
+
+.input {
+  /* width: 301px; */
+  /* height: 12px; */
+  padding: 10px 18px;
+  border-radius: 12px;
+  border: 1px solid rgb(165, 188, 37);
+}
+
+.click {
+  background-color: rgb(146, 204, 0);
+}
+
+table {
+  font-family: ;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td,
+th {
+  border: 1px solid greenyellow;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: rgb(146, 204, 0);
+}
+
+footer {
+  text-align: center;
+  font: 17px "source sans pro", arial;
+  color: #eee;
+  background: #333;
+  width: 100%;
+  border-top: 4px solid rgb(146, 204, 0);
+  padding: 20px 0 121px;
+  line-height: 1.5;
+  margin: 40px 0 0 0;
+}
+
+.footerbox {
+  padding: 0 20px;
+  background: #333;
+}
+
+/* @media (max-width: 1000px)  */
+#footermenu ul {
+  width: 100%;
+  max-height: 24px;
+  overflow: hidden;
+  margin: 8px 0;
+  max-height: 100%;
+  padding: 0 7px;
+}
+
+/* @media (max-width: 1000px)  */
+#footermenu ul li:nth-child(n + 1) {
+  margin: 0;
+  padding: 8px 14px 28px;
+  /* border-bottom: 1px solid #001121; */
+  border-bottom: blue;
+  border-right: none;
+}
+
+footer ul li a {
+  font: 16px asap, arial;
+  color: rgb(146, 204, 0);
+  letter-spacing: 0;
+  text-decoration: none;
+}
