@@ -101,8 +101,6 @@ def get_url_info(secret_key: str, request: Request, db: db_dependency):
         raise_not_found(request)
 
 
-
-
 @url_router.delete("/admin/{secret_key}")
 def delete_url(
     secret_key: str, request: Request, db: db_dependency):

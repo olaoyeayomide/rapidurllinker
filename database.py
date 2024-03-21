@@ -3,7 +3,7 @@ from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
 from app_config import get_settings
 
-# SQLALCHEMY_DATABASE_URL = 'sqlite:///./url shortener.db'
+# SQLALCHEMY_DATABASE_URL = 'sqlite:///./shortener database.db'
 
 # engine = create_engine(
 #     SQLALCHEMY_DATABASE_URL, connect_args={"check_same_thread": False})

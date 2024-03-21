@@ -2,6 +2,7 @@ from pydantic import BaseModel
 
 class URLBase(BaseModel):
     target_url: str
+    key: str
 
 class URL(URLBase):
     is_active: bool
@@ -14,9 +15,9 @@ class URLInfo(URL):
     url: str
     admin_url: str
 
-class QRCode(URLInfo):
+class QRCode(URLBase):
     image: bytes
-    message: str
 
-    class Config:
-        orm_mode = True
+
+    # class Config:
+    #     orm_mode = True

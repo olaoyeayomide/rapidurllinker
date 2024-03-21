@@ -8,6 +8,7 @@ import keygen
 import models
 from qrcode import make as make_qr_code
 import qr_codegen
+import qrcode
 
 def get_db():
     db = SessionLocal()
@@ -63,37 +64,23 @@ def update_db_clicks(db: db_dependency, db_url: URL) -> models.URL:
 #     return db_url
 
 
+def deactivate_db_url_by_secret_key(db: db_dependency, secret_key: str) -> models.URL:
+        db_url = get_db_url_by_key(db, secret_key)
+        if db_url is None:
+            raise HTTPException(status_code=404, detail="Result Not Found")
 
-
-
-# def deactivate_db_url_by_secret_key(db: Session, secret_key: str) -> models.URL:
-#         db_url = get_db_url_by_key(db, secret_key)
-#         if db_url is None:
-#             raise HTTPException(status_code=404, detail="Not Found")
-
-#         db.delete(db_url)
-#         db.commit()
-#         db.refresh(db_url)
-
-
-
-def deactivate_db_url_by_secret_key(db: Session, secret_key: str) -> models.URL:
-    db_url = get_db_url_by_key(db, secret_key)
-    if db_url:
-        db_url.is_active = False
+        db.delete(db_url)
         db.commit()
         db.refresh(db_url)
-    return db_url
 
-
-
+        return db_url
 
 
 # QR CODE GENERATOR
-def create_qr_code(db: Session, qr_code: QRCode) -> models.URL:
-    qr_image = qr_codegen.generate(qr_code.message)
+def create_qr_code(db: db_dependency, qr_code: QRCode) -> models.URL:
+    qr_image = qr_codegen.generate(qr_code.target_url)
 
-    db_qr_code = QRCode(message=qr_code.message, image=qr_image)
+    db_qr_code = QRCode(message=qr_code.target_url, image=qr_image)
     db.add(db_qr_code)
     db.commit()
     db.refresh(db_qr_code)
@@ -107,6 +94,16 @@ def create_qr_code(db: Session, qr_code: QRCode) -> models.URL:
 
 
 
+
+# def create_qr_code(db: db_dependency, qr_code: QRCode) -> models.URL:
+#     qr_image = qr_codegen.generate(qr_code.message)
+
+#     db_qr_code = QRCode(message=qr_code.message, image=qr_image)
+#     db.add(db_qr_code)
+#     db.commit()
+#     db.refresh(db_qr_code)
+
+#     return db_qr_code
 
 
 
@@ -140,50 +137,3 @@ def create_qr_code(db: Session, qr_code: QRCode) -> models.URL:
 #     db.commit()
 #     db.refresh(db_url)
 #     return db_url
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# def create_shortened_url(db: Session, original_url: str):
-#     # Create the shortened URL
-#     shortened_url = generate_shortened_url(original_url)
-
-#     # Generate and save the QR code image
-#     qr_code_image_path = f"qr_codes/{shortened_url}.png"
-#     make_qr_code(original_url).save(qr_code_image_path)
-
-#     # Save the shortened URL and its QR code image path to the database
-#     db_url = models.URL(original_url=original_url, shortened_url=shortened_url, qr_code_image=qr_code_image_path)
-#     db.add(db_url)
-#     db.commit()
-#     db.refresh(db_url)
-#     return db_url
-
-
-

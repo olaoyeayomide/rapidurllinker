@@ -5,6 +5,7 @@ from sqlalchemy.orm import Session
 import qrcode
 from starlette.responses import StreamingResponse
 import io
+from schemas import URLBase
 
 def get_db():
     db = SessionLocal()
@@ -16,42 +17,55 @@ def get_db():
 db_dependency = Annotated[Session, Depends(get_db)]
 
 
-def create_qr_codes(db: db_dependency) -> str:
+# def create_qr_codes(url: URLBase):
+#     qr = qrcode.QRCode(
+#         version=1,
+#         error_correction=qrcode.constants.ERROR_CORRECT_L,
+#         box_size=10,
+#         border=4,
+#     )
+#     qr.add_data(url.target_url)
+#     qr.make(fit=True)
+#     img = qr.make_image(fill_color="black", back_color="white")
+#     qr_code_file_path = f"qr_codes/{url.key}.png"
+#     img.save(qr_code_file_path)
+
+
+# url = ("https://example.com", "example_key")
+# create_qr_codes(url)
+
+# def create_qr_codes(url: URLBase):
+#     qr = qrcode.QRCode(
+#         version=1,
+#         error_correction=qrcode.constants.ERROR_CORRECT_L,
+#         box_size=10,
+#         border=4,
+#     )
+#     qr.add_data(url.target_url)
+#     qr.make(fit=True)
+#     img = qr.make_image(fill_color="black", back_color="white")
+#     qr_code_file_path = f"qr_codes/{url.key}.png"
+#     img.save(qr_code_file_path)
+
+
+# url = ("https://example.com", "example_key")
+# create_qr_codes(url)
+
+
+
+def generate_qr_code(url: URLBase, file_path):
     qr = qrcode.QRCode(
         version=1,
         error_correction=qrcode.constants.ERROR_CORRECT_L,
-        box_size=10,
-        border=4,
+        box_size=50,
+        border=1,
     )
-    qr.add_data(url.target_url)
+    qr.add_data(url)
     qr.make(fit=True)
+    img = qr.make_image(fill_color="green", back_color="white")
+    img.save(file_path)
 
-    img = qr.make_image(fill_color="black", back_color="white")
-    qr_code_file_path = f"qr_codes/{url.key}.png"  # Adjust as needed
-    img.save(qr_code_file_path)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-def generate(message: str):
-    img = qrcode.make(message)
-    buf = io.BytesIO()
-    img.save(buf)
-    buf.seek(0)
-    return buf.getvalue
-    # return StreamingResponse(buf, media_type="image/jpeg")
+# Example usage:
+url = "https://app.bitly.com/Bo2d8F1iImy/home"
+file_path = "qrcode.png"
+generate_qr_code(url, file_path)
