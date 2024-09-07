@@ -1,0 +1,11 @@
+{% include 'layout.html' %}
+<div class="input_activation">
+    <form method="POST" action="/add-url">
+     <input class="url input" type="text" placeholder="Paste URL here..." name="original_url" required/>
+     <button class="click btn" id="btn-open" type="submit">Click Now</button>
+    </form>
+     <div class="overlay hidden"></div>
+   </div>
+</div>
+
+<script src="{{ url_for('static', path='/rapidlinker/js/script.js') }}"></script>

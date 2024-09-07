@@ -1,14 +1,21 @@
-from fastapi import Depends, HTTPException
+from fastapi import Depends, HTTPException, APIRouter
 from typing import Annotated
 from database import SessionLocal
 from sqlalchemy.orm import Session
-from models import URL
-from schemas import URLBase, URL, QRCode
+from models import ShortnedURL
+from schemas import URLBase, URLConfig, URLInfo, QRCode
 import keygen
 import models
 from qrcode import make as make_qr_code
-import qr_codegen
+
+import schemas
+from app_config import get_settings
+from yarl import URL
 import qrcode
+from starlette.responses import StreamingResponse
+import io
+
+url_router = APIRouter()
 
 def get_db():
     db = SessionLocal()
@@ -19,12 +26,12 @@ def get_db():
 
 db_dependency = Annotated[Session, Depends(get_db)]
 
-def create_db_url(db: db_dependency, url: URLBase) -> models.URL:
+def create_db_url(db: db_dependency, url: URLBase) -> models.ShortnedURL:
     key = keygen.create_random_keys(length=4)
     secret_key = f"{key}_{keygen.create_random_keys(length=8)}"
 
-    db_url = models.URL(
-        target_url=url.target_url, key=key, secret_key=secret_key
+    db_url = models.ShortnedURL(
+        original_url=url.original_url, key=key, secret_key=secret_key
     )
 
     db.add(db_url)
@@ -33,107 +40,74 @@ def create_db_url(db: db_dependency, url: URLBase) -> models.URL:
 
     return db_url
 
-def get_db_url_by_key(db: db_dependency, url_key: str) -> models.URL:
+
+
+def get_db_url_by_secret_key(db: db_dependency, secret_key: str) -> models.ShortnedURL:
     return (
-        db.query(models.URL)
-        .filter(models.URL.key == url_key, models.URL.is_active)
+        db.query(models.ShortnedURL)
+        .filter(models.ShortnedURL.secret_key == secret_key, models.ShortnedURL.is_active)
         .first()
     )
 
-def get_db_url_by_secret_key(db: db_dependency, secret_key: str) -> models.URL:
+def get_db_url_by_key(db: db_dependency, url_key: str) -> models.ShortnedURL:
     return (
-        db.query(models.URL)
-        .filter(models.URL.secret_key == secret_key, models.URL.is_active)
+        db.query(models.ShortnedURL)
+        .filter(models.ShortnedURL.key == url_key, models.ShortnedURL.is_active)
         .first()
     )
 
-def update_db_clicks(db: db_dependency, db_url: URL) -> models.URL:
+# CLICK UPDATES
+def update_db_clicks(db: db_dependency, db_url: schemas.URLConfig) -> models.ShortnedURL:
     db_url.clicks += 1
     db.commit()
     db.refresh(db_url)
     return db_url
 
-
-
-# def deactivate_db_url_by_secret_key(db: Session, secret_key: str) -> models.URL:
-#     db_url = get_db_url_by_key(db, secret_key)
-#     if db_url:
-#         db_url.is_active = False
-#         db.commit()
-#         db.refresh(db_url)
-#     return db_url
-
-
-def deactivate_db_url_by_secret_key(db: db_dependency, secret_key: str) -> models.URL:
-        db_url = get_db_url_by_key(db, secret_key)
-        if db_url is None:
-            raise HTTPException(status_code=404, detail="Result Not Found")
-
+def deactivate_db_url_by_secret_key(
+    db: db_dependency, secret_key: str
+) -> models.ShortnedURL:
+    db_url = get_db_url_by_secret_key(db, secret_key)
+    if db_url:
+        db_url.is_active = False
         db.delete(db_url)
         db.commit()
-        db.refresh(db_url)
+    return db_url
 
+def deactivate_db_url_by_id(db: db_dependency, id: int):
+    db_url = db.query(ShortnedURL).filter(ShortnedURL.id == id).first()
+    if db_url:
+        db_url.is_active = False
+        db.commit()
+        db.refresh(db_url)
         return db_url
+    return None
 
 
 # QR CODE GENERATOR
-def create_qr_code(db: db_dependency, qr_code: QRCode) -> models.URL:
-    qr_image = qr_codegen.generate(qr_code.target_url)
-
-    db_qr_code = QRCode(message=qr_code.target_url, image=qr_image)
-    db.add(db_qr_code)
+def generate_qr_code_url(db: db_dependency, url: str, key: str, secret_key: str, ) -> ShortnedURL:
+    qr = qrcode.QRCode(
+        version=1,
+        error_correction=qrcode.constants.ERROR_CORRECT_L,
+        box_size=1,
+        border=1,
+    )
+    qr.add_data(url)
+    qr.make(fit=True)
+    
+    img = qr.make_image(fill_color="purple", back_color="white")
+    
+    img_io = io.BytesIO()
+    img.save(img_io, 'PNG')
+    img_io.seek(0)
+    
+    qr_code_model = ShortnedURL(
+        original_url=url,
+        key=key,
+        secret_key=secret_key,
+        qr_code_image=img_io.getvalue()
+    )
+    db.add(qr_code_model)
     db.commit()
-    db.refresh(db_qr_code)
-
-    return db_qr_code
-
-
-
-
-
-
-
-
-
-# def create_qr_code(db: db_dependency, qr_code: QRCode) -> models.URL:
-#     qr_image = qr_codegen.generate(qr_code.message)
-
-#     db_qr_code = QRCode(message=qr_code.message, image=qr_image)
-#     db.add(db_qr_code)
-#     db.commit()
-#     db.refresh(db_qr_code)
-
-#     return db_qr_code
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# def crud_db_url(db: Session, url: str, qr_code_path: str) -> models.URL:
-#     """
-#     Create a new URL entry in the database.
-
-#     Parameters:
-#     - db (Session): SQLAlchemy database session
-#     - url (str): The URL to be stored in the database
-#     - qr_code_path (str): The file path of the generated QR code
-
-#     Returns:
-#     - URL: The created URL object
-#     """
-#     # Perform database operation to create a new URL entry
-#     db_url = models.URL(target_url=url.target_url, key=key, secret_key=secret_key, qr_code_path=qr_code_path)
-#     db.add(db_url)
-#     db.commit()
-#     db.refresh(db_url)
-#     return db_url
+    db.refresh(qr_code_model)
+    
+    return qr_code_model

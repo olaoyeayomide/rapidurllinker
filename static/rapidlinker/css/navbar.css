@@ -1,0 +1,171 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: sans-serif;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+header {
+  min-height: 70px;
+  padding: 0 25px;
+  margin: 0px auto;
+}
+.wrapper {
+  /* Workon this width later */
+  /* width: min(100% - 3rem, 56.25rem); */
+  margin-inline: auto;
+}
+
+.topnav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-block: 1.5rem;
+}
+.topnav h5 {
+  font-family: "Protest Riot", sans-serif;
+  background-image: radial-gradient(
+    circle farthest-side at bottom left,
+    rgb(246, 255, 79),
+    rgb(92, 128, 0) 15%,
+    rgb(0, 102, 0) 35%,
+    rgb(0, 77, 0) 50%,
+    rgb(0, 53, 0) 65%,
+    rgb(0, 30, 0) 85%,
+    rgb(0, 0, 0) 100%
+  );
+  background-size: 100%;
+  background-repeat: repeat;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: rgba(0, 0, 0, 0);
+  -moz-background-clip: text;
+  -moz-text-fill-color: rgba(0, 0, 0, 0);
+  font-weight: 500;
+  font-size: 18px;
+}
+.topnav .navId {
+  font-weight: 700;
+  font-size: 1.5rem;
+}
+
+.navId-txt {
+  font-size: smaller;
+  color: black;
+}
+
+.topnav button {
+  background: none;
+  border: none;
+  padding: 0;
+}
+
+a,
+a:visited,
+a:active {
+  font-size: 1.5rem;
+  font-weight: 700;
+  text-decoration: none;
+  color: inherit;
+}
+a:hover,
+a:visited:hover,
+a:active:hover {
+  -webkit-text-decoration: underline 2px;
+  text-decoration: underline 2px;
+}
+
+.topnav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-block: 1.5rem;
+}
+.topnav button {
+  background: none;
+  border: none;
+  padding: 0;
+}
+
+@media (width >= 40em) {
+  .topnav button {
+    display: none;
+  }
+}
+.topnav__open[aria-expanded="true"] + .topnav__menu {
+  translate: 0;
+}
+@media (prefers-reduced-motion) {
+  .topnav__open[aria-expanded="true"] + .topnav__menu {
+    opacity: 1;
+  }
+}
+.topnav__close {
+  display: block;
+  margin-inline-start: auto;
+  margin-block-end: 8rem;
+}
+.topnav__close img {
+  width: 2.5rem;
+}
+@media (width < 40em) {
+  .topnav__menu {
+    position: fixed;
+    inset: 0;
+    padding: 1.5rem;
+    background-color: #2d00a8;
+    translate: 100vw 0;
+    transition: translate 0.5s ease-in-out;
+  }
+}
+@media (width < 40em) and (prefers-reduced-motion) {
+  .topnav__menu {
+    translate: 0;
+    opacity: 0;
+    transition: opacity 500ms ease-in-out;
+  }
+}
+.topnav__links {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+}
+@media (width < 40em) {
+  .topnav__links {
+    flex-direction: column;
+  }
+}
+.topnav__item {
+  list-style-type: none;
+}
+.topnav__navbtn {
+  font-size: 18px;
+  border-radius: 20px;
+  padding: 10px;
+  border: none;
+}
+
+.btn {
+  color: white;
+  border-radius: 18px;
+  border: none;
+  padding: 0.5rem 0.4rem;
+  font-weight: 700;
+  text-align: center;
+  font-size: 1em;
+  border-style: solid;
+  border-color: blue;
+}
+
+.click {
+  background-color: rgb(146, 204, 0);
+}
+
+/*# sourceMappingURL=navbar.css.map */

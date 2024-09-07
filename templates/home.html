@@ -1,0 +1,115 @@
+{% include 'layout.html' %}
+<main>
+  <div class="content page_details">
+    <h1 class="content header-text">Make links in a blink with ease.</h1>
+    <p class="content inner-text">
+      Use our digital link shortener to connect with your audience. Ensure that
+      your URLs are sorter . Engage your audience and connect them with right
+      information. <em>Build, edit and many more on Rapid Linker</em>
+    </p>
+
+    <div class="input_activation">
+      <form
+        class="input_container"
+        method="POST"
+        action="/rapid_linker/add-url"
+      >
+        <input
+          class="url input"
+          type="text"
+          placeholder="Paste URL here..."
+          name="original_url"
+          required
+        />
+        <button class="click btn" id="btn-open" type="submit">Click Now</button>
+      </form>
+    </div>
+
+    <!-- MODAL -->
+    <section class="modal hidden" id="result-modal">
+      <div class="modal__inner">
+        <div class="modal__top">
+          <div class="flex">
+            <h5 class="modal__title">Shortener URL</h5>
+            <button class="btn-close" id="close-modal">
+              <span class="material-icons">close</span>
+            </button>
+          </div>
+        </div>
+        <div>
+          <p>Your shortened URL is:</p>
+          <p>
+            <a id="shortened-url" href="{{ shortened_url }}" target="_blank"
+              >{{ shortened_url }}</a
+            >
+
+            <img
+              src="data:image/png;base64,{{ qr_code_image }}"
+              alt="QR Code"
+            />
+          </p>
+        </div>
+
+        <div class="modal__bottom">
+          <a class="history" href="history">History</a>
+          <button class="modal__btn" type="button" id="modal-got-it">
+            Got It
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <div class="overlay hidden" id="overlay"></div>
+  </div>
+
+  <!-- FEATURE -->
+  <section class="content features-section">
+    <div class="container">
+      <div class="container text-content">
+        <h1 class="text-content-header">Rapid Linker Unique features</h1>
+        <p class="text-content-txt">
+          Dignissim suspendisse in est ante in nibh mauris. Varius quam quisque
+          id diam vel quam elementum pulvinar etiam. Nunc pulvinar sapien et
+          ligula ullamcorper malesuada proin. Nunc mattis enim ut tellus
+          elementum sagittis vitae et leo.
+        </p>
+        <button class="learn-more-btn">Learn More</button>
+      </div>
+
+      <div class="features">
+        <div class="flex-box-left">
+          <div class="feature-box">
+            <div class="icon premium-design"></div>
+            <h3>Premium Design</h3>
+            <p>Sample text. Click to select the text box.</p>
+          </div>
+          <div class="feature-box">
+            <div class="icon amazing-photography"></div>
+            <h3>Amazing Photography</h3>
+            <p>Sample text. Click to select the text box.</p>
+          </div>
+        </div>
+
+        <div class="flex-box-right">
+          <div class="feature-box">
+            <div class="icon unique-strategy"></div>
+            <h3>Unique Strategy</h3>
+            <p>Sample text. Click to select the text box.</p>
+          </div>
+          <div class="feature-box">
+            <div class="icon creative-ideas"></div>
+            <h3>Creative Ideas</h3>
+            <p>Sample text. Click to select the text box.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- FOOTER -->
+{% include 'footer.html' %}
+
+<script src="https://cdn.jsdelivr.net/gh/rick-liruixin/body-scroll-lock-upgrade@v1.1.0/lib/index.umd.js"></script>
+
+<script src="{{ url_for('static', path='/rapidlinker/js/script.js') }}"></script>

@@ -1,0 +1,47 @@
+<header class="topnav wrapper">
+  <h5 class="navId"><span class="navId-txt">rapid</span>LINKER</h5>
+  <nav>
+    <span id="nav-label" hidden>Navigation</span>
+    <button
+      id="btnOpen"
+      class="topnav__open"
+      aria-expanded="false"
+      aria-labelledby="nav-label"
+    >
+      <image src="/img/hamburger.png" alt="" width="28" height="27" />
+    </button>
+    <div class="topnav__menu" role="dialog" aria-labelledby="nav-label">
+      <button class="topnav__close" id="btnClose" aria-labe="Close">
+        <image src="/img/close.png" alt="" width="28" height="27" />
+      </button>
+      <ul class="topnav__links">
+        <li class="topnav__item"><a href="" class="topnav__link">Home</a></li>
+        <li class="topnav__item">
+          <a href="" class="topnav__link">Qr Codes</a>
+        </li>
+        <li class="topnav__item">
+          <a href="" class="topnav__link">Features</a>
+        </li>
+
+        <li class="topnav__item">
+          <a href="" class="topnav__link">Contact</a>
+        </li>
+
+        <li class="top btn click">
+          <span
+            class="nav__navbtn topnav__link good-btn"
+            type="button"
+            data-toggle="collapse"
+            data-target="#navbarCollapse"
+            aria-controls="navbarNav"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            Get Started
+          </span>
+        </li>
+      </ul>
+    </div>
+  </nav>
+</header>
+{% block content %} {% endblock %}

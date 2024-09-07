@@ -1,0 +1,94 @@
+{% include 'layout.html' %}
+<main class="content table" id="customers_table">
+  <section class="table__header">
+    <h1 class="table_history">History</h1>
+    <div class="input-group">
+      <input type="search" placeholder="Search Data..." />
+    </div>
+    <div class="export__file">
+      <label
+        for="export-file"
+        class="export__file-btn"
+        title="Export File"
+      ></label>
+      <input type="checkbox" id="export-file" />
+    </div>
+  </section>
+  <section class="table__body">
+    <table>
+      <thead>
+        <tr>
+          <th>Id <span class="icon-arrow">&UpArrow;</span></th>
+          <th>Original URL <span class="icon-arrow">&UpArrow;</span></th>
+          <th>Shortener URL <span class="icon-arrow">&UpArrow;</span></th>
+          <th>Clicks <span class="icon-arrow">&UpArrow;</span></th>
+          <th>Secret Key <span class="icon-arrow">&UpArrow;</span></th>
+          <th>QR Code <span class="icon-arrow">&UpArrow;</span></th>
+          <th><span class="icon-arrow">🗑️</span></th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for url in urls %}
+        <tr>
+          <td>{{loop.index}}</td>
+          <td>{{ url.original_url }}</td>
+          <td>
+            {{ url.shortened_url }}
+            <button
+              class="btn-close"
+              onclick="copyToClipboard('{{ url.shortened_url }}')"
+            >
+              <span class="material-icons">content_copy</span>
+            </button>
+          </td>
+
+          <td>{{ url.clicks }}</td>
+          <td>{{ url.secret_key }}</td>
+          <td>
+            <img
+              src="data:image/png;base64,{{ qr_code_image }}"
+              alt="QR Code"
+            />
+          </td>
+          <td>
+            <button
+              onclick="deleteUrl('{{ url.secret_key }}')"
+              type="button"
+              class="delete_icon"
+            >
+              <span class="material-icons">delete_sweep</span>
+            </button>
+
+            <script>
+              function copyToClipboard(text) {
+                navigator.clipboard
+                  .writeText(text)
+                  .then(() => {
+                    alert("Copied to clipboard!");
+                  })
+                  .catch((err) => {
+                    console.error("Failed to copy: ", err);
+                  });
+              }
+
+              function deleteUrl(secretKey) {
+                fetch(`/rapid_linker/delete/${secretKey}`, {
+                  method: "DELETE",
+                })
+                  .then((response) => response.json())
+                  .then((data) => {
+                    alert(data.detail);
+                    location.reload();
+                  })
+                  .catch((error) => console.error("Error:", error));
+              }
+            </script>
+          </td>
+        </tr>
+
+        {% endfor %}
+      </tbody>
+    </table>
+  </section>
+</main>
+{% include 'footer.html' %}

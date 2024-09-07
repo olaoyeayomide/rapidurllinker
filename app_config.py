@@ -3,8 +3,8 @@ from pydantic_settings import BaseSettings
 
 class Settings(BaseSettings):
     env_name: str =  "Local"
-    base_url: str = "http://loacalhost:8000"
-    db_url: str = "sqlite:///./shortener database.db"
+    base_url: str = "http://localhost:8000"
+    db_url: str = 'postgresql://postgres:WorkTheWord1@localhost:5432/Rapid Linker Application Server Database'
 
     class Config:
         env_file = ".env"
@@ -14,4 +14,3 @@ def get_settings() -> Settings:
     settings = Settings()
     print(f"Loading settings for: {settings.env_name}")
     return settings
-

@@ -1,0 +1,25 @@
+Eventually we would create a copy and paste function to download videos from Instagram
+Also in order to access this function you must log in first.
+
+WHAT ARE WE IN QUEST FOR?
+Change the logo to Block like this(rapid LINKER) with different colors
+Arrange the schemas of the history properly cox it is only the original url thats visible.
+
+URL -- SHorten url
+
+I guess we need to correct the url given to mean the shortened url to another name and converge it inside the models
+In order to accomplish this we use the same pattern as for that of the "original url" regarded as the "targeted url"
+
+According to what we can see the original url is generaded from the crud.py in which "target_url" was also created this relates to the "create url" in the url.py file in which the whole generation was made
+
+I think by this the error occur by the tie we created the function on the crud by excluding a model that is responsible for shorter url which would be linked to the model
+
+Ask AI why is it necessary to use secrete key while deleting on the shortner url website
+
+CSS
+NOTE: APPLY media to td:not later
+
+2nd header MAKE LINKS IN A BLINK WITH EASE
+
+
+Ask ChatGPT this question later does Swagger UI view pictures as a file in order to get the QR Code configurations

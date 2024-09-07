@@ -1,0 +1,37 @@
+<!-- {% include 'layout.html' %} -->
+<div class="input_activation">
+  <input class="url input" type="text" placeholder="Paste URL here..." />
+  <button class="click btn" id="btn-open">Click Now</button>
+
+
+<div class="input_activation">
+  <input class="url input" type="text" placeholder="Paste URL here..." />
+  <button class="click btn" id="btn-open">Click Now</button>
+</div>
+
+<section class="modal hidden">
+    <div class="modal__inner">
+      <div class="modal__top">
+        <div class="flex">
+          <h5 class="modal__title">Shortener URL</h5>
+          <button class="btn-close"><span class="material-icons">close</span></button>
+        </div>
+      </div>
+      <div>
+        <p>
+          This is a dummy newsletter form so don't bother trying to test it. Not
+          that I expect you to, anyways.
+        </p>
+      </div>
+      <div class="modal__bottom">
+        <a class="history" href="history.html">History</a>
+        <button class="modal__btn" type="button">Got It</button>
+      </div>
+    </div>
+  </section>
+  
+  <div class="overlay hidden"></div>
+</div>
+</div>
+
+<script src="{{ url_for('static', path='/rapidlinker/js/modal.js') }}"></script>

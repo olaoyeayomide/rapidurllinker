@@ -1,0 +1,103 @@
+.topnav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-block: 1.5rem;
+
+  h5 {
+    font-family: "Protest Riot", sans-serif;
+    background-image: radial-gradient(
+      circle farthest-side at bottom left,
+      rgb(246, 255, 79),
+      rgb(92, 128, 0) 15%,
+      rgba(0, 102, 0, 1) 35%,
+      rgba(0, 77, 0, 1) 50%,
+      rgba(0, 53, 0, 1) 65%,
+      rgba(0, 30, 0, 1) 85%,
+      rgba(0, 0, 0, 1) 100%
+    );
+    background-size: 100%;
+    background-repeat: repeat;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    -moz-background-clip: text;
+    -moz-text-fill-color: transparent;
+    font-weight: 500;
+    font-size: 18px;
+  }
+
+  .navId {
+    font-weight: 700;
+    font-size: 1.5rem;
+  }
+
+  button {
+    background: none;
+    border: none;
+    padding: 0;
+
+    @media (width >= 40em) {
+      display: none;
+    }
+  }
+
+  &__open[aria-expanded="true"] {
+    + .topnav__menu {
+      translate: 0;
+
+      @media (prefers-reduced-motion) {
+        opacity: 1;
+      }
+    }
+  }
+
+  &__close {
+    display: block;
+    margin-inline-start: auto;
+    margin-block-end: 8rem;
+
+    img {
+      width: 2.5rem;
+    }
+  }
+
+  &__menu {
+    @media (width < 40em) {
+      position: fixed;
+      inset: 0;
+      padding: 1.5rem;
+      background-color: hsl(256, 100%, 33%);
+      translate: 100vw 0;
+      transition: translate 0.5s ease-in-out;
+    }
+
+    @media (width < 40em) and (prefers-reduced-motion) {
+      translate: 0;
+      opacity: 0;
+      transition: opacity 500ms ease-in-out;
+    }
+  }
+
+  &__links {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+
+    @media (width < 40em) {
+      flex-direction: column;
+    }
+  }
+
+  &__item {
+    list-style-type: none;
+  }
+
+  &__navbtn {
+    font-size: 18px;
+    border-radius: 20px;
+    padding: 10px;
+    border: none;
+  }
+}
